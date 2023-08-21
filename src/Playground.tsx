@@ -1,7 +1,7 @@
 import { Requests } from "./api";
 
 const messAround = async () => {
-  await Requests.updateDog(20, false);
+  await Requests.updateDog(0, true);
 };
 
 export const Playground = () => {
