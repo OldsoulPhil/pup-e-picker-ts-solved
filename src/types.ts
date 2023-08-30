@@ -6,3 +6,6 @@ export type TDog = {
   isFavorite: boolean;
   id: number;
 };
+export type Props = {
+  allDogs: TDog[];
+};
