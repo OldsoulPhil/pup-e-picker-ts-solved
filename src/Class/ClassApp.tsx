@@ -9,7 +9,7 @@ export class ClassApp extends Component {
     allDogs: [],
     isLoading: false,
   };
-  fetchTheDogs = () => {
+  fetchData = () => {
     this.setState({ isloading: true });
     return Requests.getAllDogs()
       .then((data) => this.setState({ allDogs: data }))
@@ -17,31 +17,31 @@ export class ClassApp extends Component {
         this.setState({ isLoading: false });
       });
   };
-  componentMounted(): void {
-    this.fetchTheDogs();
+  componentDidMount(): void {
+    this.fetchData();
   }
-  createTheD = (dog: Omit<TDog, "id">) => {
+  createDog = (dog: Omit<TDog, "id">) => {
     Requests.postDog(dog)
       .then(() => {
-        this.fetchTheDogs();
+        this.fetchData();
       })
       .then(() => {
         toast.success("Dog Created");
       });
   };
-  deleteTheD = (dogId: number) => {
+  deleteDog = (dogId: number) => {
     Requests.deleteDog(dogId).then(() => {
-      this.fetchTheDogs();
+      this.fetchData();
     });
   };
-  updateTheD = (dogId: number, isFavorite: boolean) => {
+  updateDog = (dogId: number, isFavorite: boolean) => {
     Requests.updateDog(dogId, isFavorite).then(() => {
-      this.fetchTheDogs();
+      this.fetchData();
     });
   };
 
   render() {
-    const { updateTheD, createTheD, deleteTheD } = this;
+    const { updateDog, createDog, deleteDog } = this;
     const { allDogs, isLoading } = this.state;
     return (
       <div className="App" style={{ backgroundColor: "goldenrod" }}>
@@ -49,9 +49,9 @@ export class ClassApp extends Component {
           <h1>pup-e-picker (Class Version)</h1>
         </header>
         <ClassSection
-          updateTheD={updateTheD}
-          createTheD={createTheD}
-          deleteTheD={deleteTheD}
+          updateDog={updateDog}
+          createDog={createDog}
+          deleteDog={deleteDog}
           allDogs={allDogs}
           isLoading={isLoading}
         />
