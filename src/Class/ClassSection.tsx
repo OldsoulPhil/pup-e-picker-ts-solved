@@ -30,8 +30,8 @@ export class ClassSection extends Component<{
     const { activeComponent } = this.state;
     const { toggleTab } = this;
 
-    const favoriteDogs = allDogs.filter((dog) => dog.isFavorite === true);
-    const unfavoriteDogs = allDogs.filter((dog) => dog.isFavorite === false);
+    const favoriteDogs = allDogs.filter((dog) => dog.isFavorite);
+    const unfavoriteDogs = allDogs.filter((dog) => !dog.isFavorite);
     return (
       <section id="main-section">
         <div className="container-header">

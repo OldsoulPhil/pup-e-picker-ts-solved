@@ -17,9 +17,11 @@ export class ClassApp extends Component {
         this.setState({ isLoading: false });
       });
   };
+
   componentDidMount(): void {
     this.fetchData();
   }
+
   createDog = (dog: Omit<TDog, "id">) => {
     Requests.postDog(dog)
       .then(() => {
@@ -29,11 +31,13 @@ export class ClassApp extends Component {
         toast.success("Dog Created");
       });
   };
+
   deleteDog = (dogId: number) => {
     Requests.deleteDog(dogId).then(() => {
       this.fetchData();
     });
   };
+
   updateDog = (dogId: number, isFavorite: boolean) => {
     Requests.updateDog(dogId, isFavorite).then(() => {
       this.fetchData();
@@ -55,7 +59,6 @@ export class ClassApp extends Component {
           allDogs={allDogs}
           isLoading={isLoading}
         />
-        {/* should be inside of the ClassSection component using react children */}
       </div>
     );
   }
