@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 
 export function FunctionalApp() {
   const [allDogs, setAllDogs] = useState<TDog[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = () => {
     setIsLoading(true);
@@ -16,47 +16,31 @@ export function FunctionalApp() {
         setIsLoading(false);
       });
   };
+
   useEffect(() => {
-    setIsLoading(true);
-    fetchData().then(() => {
-      setIsLoading(false);
-    });
+    fetchData();
   }, []);
 
   const createDog = (dog: Omit<TDog, "id">) => {
-    setIsLoading(true);
     Requests.postDog(dog)
       .then(() => {
         fetchData();
       })
       .then(() => {
         toast.success("You have posted a new doggo");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
 
   const deleteDog = (dogId: number) => {
-    setIsLoading(true);
-    Requests.deleteDog(dogId)
-      .then(() => {
-        fetchData();
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    Requests.deleteDog(dogId).then(() => {
+      fetchData();
+    });
   };
 
   const updateDog = (dogId: number, isFavorite: boolean) => {
-    setIsLoading(true);
-    Requests.updateDog(dogId, isFavorite)
-      .then(() => {
-        fetchData();
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    Requests.updateDog(dogId, isFavorite).then(() => {
+      fetchData();
+    });
   };
 
   return (

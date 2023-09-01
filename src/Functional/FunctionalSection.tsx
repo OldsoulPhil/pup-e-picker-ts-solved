@@ -1,9 +1,8 @@
-// you can use this type for react children if you so choose
 import { Link } from "react-router-dom";
 import { FunctionalDogs } from "./FunctionalDogs";
 import { FunctionalCreateDogForm } from "./FunctionalCreateDogForm";
-import { TDog } from "../types";
-import { useState, useEffect, useRef } from "react";
+import { TDog, UsingComponent } from "../types";
+import { useState } from "react";
 
 export const FunctionalSection = ({
   createDog,
@@ -18,27 +17,12 @@ export const FunctionalSection = ({
   deleteDog: (dogId: number) => void;
   updateDog: (dogId: number, isFavorite: boolean) => void;
 }) => {
-  const [favoriteDogs, setFavoriteDogs] = useState<TDog[]>([]);
-  const [unFavoriteDogs, setUnFavoriteDogs] = useState<TDog[]>([]);
-  const [showComponent, setShowComponent] = useState<string>("all-dogs");
+  const favoriteDogs = allDogs.filter((dog) => dog.isFavorite);
+  const unFavoriteDogs = allDogs.filter((dog) => !dog.isFavorite);
 
-  useEffect(() => {
-    const favorited: TDog[] = [];
-    const unfavorited: TDog[] = [];
-    allDogs.map((dog) => {
-      if (dog.isFavorite === true) {
-        favorited.push(dog);
-      } else {
-        unfavorited.push(dog);
-      }
-    });
-    setFavoriteDogs(favorited);
-    setUnFavoriteDogs(unfavorited);
-  }, [allDogs]);
+  const [showComponent, setShowComponent] =
+    useState<UsingComponent>("all-dogs");
 
-  const ref1 = useRef("");
-  const ref2 = useRef("");
-  const ref3 = useRef("");
   return (
     <section id="main-section">
       <div className="container-header">
@@ -54,17 +38,14 @@ export const FunctionalSection = ({
         </Link>
 
         <div className="selectors">
-          {/* This should display the favorited count */}
           <div
-            className={`selector ${ref1.current}`}
+            className={`selector ${
+              showComponent === "favorited-dogs" ? "active" : ""
+            }`}
             onClick={() => {
               if (showComponent === "favorited-dogs") {
-                ref1.current = "";
                 return setShowComponent("all-dogs");
               }
-              ref1.current = "active";
-              ref2.current = "";
-              ref3.current = "";
               return setShowComponent("favorited-dogs");
             }}
           >
@@ -73,15 +54,13 @@ export const FunctionalSection = ({
 
           {/* This should display the unfavorited count */}
           <div
-            className={`selector ${ref2.current}`}
+            className={`selector ${
+              showComponent === "unfavorited-dogs" ? "active" : ""
+            }`}
             onClick={() => {
               if (showComponent === "unfavorited-dogs") {
-                ref2.current = "";
                 return setShowComponent("all-dogs");
               }
-              ref1.current = "";
-              ref2.current = "active";
-              ref3.current = "";
               return setShowComponent("unfavorited-dogs");
             }}
           >
@@ -89,16 +68,14 @@ export const FunctionalSection = ({
           </div>
 
           <div
-            className={`selector ${ref3.current}`}
+            className={`selector ${
+              showComponent === "create-dog-form" ? "active" : ""
+            }`}
             onClick={() => {
-              if (showComponent === "dog-form") {
-                ref3.current = "";
+              if (showComponent === "create-dog-form") {
                 return setShowComponent("all-dogs");
               }
-              ref1.current = "";
-              ref2.current = "";
-              ref3.current = "active";
-              return setShowComponent("dog-form");
+              return setShowComponent("create-dog-form");
             }}
           >
             create dog
@@ -130,7 +107,7 @@ export const FunctionalSection = ({
             updateDog={updateDog}
           />
         )}
-        {showComponent === "dog-form" && (
+        {showComponent === "create-dog-form" && (
           <FunctionalCreateDogForm
             createDog={createDog}
             isLoading={isLoading}
