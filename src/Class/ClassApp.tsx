@@ -4,13 +4,19 @@ import { TDog } from "../types";
 import { Requests } from "../api";
 import { toast } from "react-hot-toast";
 
-export class ClassApp extends Component {
-  state = {
+type ClassAppState = {
+  allDogs: TDog[];
+  isLoading: boolean;
+};
+
+export class ClassApp extends Component<Record<string, never>, ClassAppState> {
+  state: ClassAppState = {
     allDogs: [],
     isLoading: false,
   };
+
   fetchData = () => {
-    this.setState({ isloading: true });
+    this.setState({ isLoading: true });
     return Requests.getAllDogs()
       .then((data) => this.setState({ allDogs: data }))
       .finally(() => {
