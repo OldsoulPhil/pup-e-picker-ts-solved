@@ -22,25 +22,39 @@ export function FunctionalApp() {
   }, []);
 
   const createDog = (dog: Omit<TDog, "id">) => {
+    setIsLoading(true);
     Requests.postDog(dog)
       .then(() => {
         fetchData();
       })
       .then(() => {
         toast.success("You have posted a new doggo");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   const deleteDog = (dogId: number) => {
-    Requests.deleteDog(dogId).then(() => {
-      fetchData();
-    });
+    setIsLoading(true);
+    Requests.deleteDog(dogId)
+      .then(() => {
+        fetchData();
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const updateDog = (dogId: number, isFavorite: boolean) => {
-    Requests.updateDog(dogId, isFavorite).then(() => {
-      fetchData();
-    });
+    setIsLoading(true);
+    Requests.updateDog(dogId, isFavorite)
+      .then(() => {
+        fetchData();
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (

@@ -74,7 +74,7 @@
       "name": "Elisha",
       "image": "/assets/blue-heeler.png",
       "description": "Van North Southeast deposit rem",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 10
     },
     {
@@ -102,7 +102,7 @@
       "name": "Stanley",
       "image": "/assets/corgi.png",
       "description": "absent Loti Cadillac consectetur realize iterate Identity East",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 14
     },
     {

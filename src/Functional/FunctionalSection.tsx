@@ -23,6 +23,12 @@ export const FunctionalSection = ({
   const [showComponent, setShowComponent] =
     useState<UsingComponent>("all-dogs");
 
+  const toggleShowComponent = (input: UsingComponent) => {
+    if (input === "all-dogs") return setShowComponent("all-dogs");
+    if (input === showComponent) return setShowComponent("all-dogs");
+    return setShowComponent(input);
+  };
+
   return (
     <section id="main-section">
       <div className="container-header">
@@ -43,10 +49,7 @@ export const FunctionalSection = ({
               showComponent === "favorited-dogs" ? "active" : ""
             }`}
             onClick={() => {
-              if (showComponent === "favorited-dogs") {
-                return setShowComponent("all-dogs");
-              }
-              return setShowComponent("favorited-dogs");
+              toggleShowComponent("favorited-dogs");
             }}
           >
             favorited ( {favoriteDogs.length} )
@@ -58,10 +61,7 @@ export const FunctionalSection = ({
               showComponent === "unfavorited-dogs" ? "active" : ""
             }`}
             onClick={() => {
-              if (showComponent === "unfavorited-dogs") {
-                return setShowComponent("all-dogs");
-              }
-              return setShowComponent("unfavorited-dogs");
+              toggleShowComponent("unfavorited-dogs");
             }}
           >
             unfavorited ( {unFavoriteDogs.length} )
@@ -72,10 +72,7 @@ export const FunctionalSection = ({
               showComponent === "create-dog-form" ? "active" : ""
             }`}
             onClick={() => {
-              if (showComponent === "create-dog-form") {
-                return setShowComponent("all-dogs");
-              }
-              return setShowComponent("create-dog-form");
+              toggleShowComponent("create-dog-form");
             }}
           >
             create dog
